@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MainComponent } from '../../components/main';
+import { request } from '../../services';
 
 const MainContainer: React.FC = () => {
-  return <MainComponent />;
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      // @ts-ignore
+      const r = await request({ url: 'http://httpbin.org/json' });
+      const j = await r.json();
+      await setData(j);
+    })();
+  }, []);
+
+  return <MainComponent data={data} />;
 };
 
 export { MainContainer };
