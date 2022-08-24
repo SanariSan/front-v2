@@ -1,5 +1,5 @@
 import { deref } from '@dbeining/react-atom';
-import { keystoreAtom } from '../../store/keystore';
+import { keystoreAtom } from '../../storage/keystore';
 import type { TPath } from '../../services/request-base';
 
 const getBearerHeader = () => {

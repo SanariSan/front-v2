@@ -1,9 +1,8 @@
-enum ETIME_SEC {
-  ONE = 1000,
-  QUARTER_TO = 750,
-  HALF = 500,
-  QUARTER = 250,
-  EIGHTH = 125,
+enum ETIME {
+  MS = 1,
+  SEC = 1000,
+  MIN = 1000 * 60,
+  HOUR = 1000 * 60 * 60,
 }
 
 const DEFAULT_FETCH_HEADERS = {
@@ -16,4 +15,4 @@ const DEFAULT_FETCH_OPTIONS = {
   redirect: 'manual',
 };
 
-export { ETIME_SEC, DEFAULT_FETCH_OPTIONS, DEFAULT_FETCH_HEADERS };
+export { ETIME, DEFAULT_FETCH_OPTIONS, DEFAULT_FETCH_HEADERS };

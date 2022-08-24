@@ -1,7 +1,7 @@
 import { deref } from '@dbeining/react-atom';
 import { changeRoute } from '../../components/history-catcher';
 import { reqAccessRefresh } from '../../services/access';
-import { keystoreAtom, updateKeystore } from '../../store/keystore';
+import { keystoreAtom, updateKeystore } from '../../storage/keystore';
 
 const triggerRefresh = async () => {
   const { accessToken, refreshToken } = deref(keystoreAtom);

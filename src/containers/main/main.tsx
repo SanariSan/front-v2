@@ -7,7 +7,7 @@ const MainContainer: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      // @ts-ignore
+      // @ts-expect-error temp call for showcase, not typed
       const r = await request({ url: 'http://httpbin.org/json' });
       const j = await r.json();
       await setData(j);

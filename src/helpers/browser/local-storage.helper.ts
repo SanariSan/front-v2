@@ -2,10 +2,10 @@ import type { ILocalStorageKey } from './local-storage.helper.type';
 
 const getLSValue = (key: ILocalStorageKey): any => {
   const item = window.localStorage.getItem(key);
-  let parsed = null;
+  let parsed;
 
   try {
-    parsed = item ? JSON.parse(item) : null;
+    parsed = item ? JSON.parse(item) : undefined;
   } catch {
     console.warn('No key in local storage, please clear cookies and refresh');
   }

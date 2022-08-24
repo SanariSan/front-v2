@@ -2,7 +2,7 @@ import { useAtom } from '@dbeining/react-atom';
 import React from 'react';
 import { Button, Image } from 'semantic-ui-react';
 import img from '../../img/404.png';
-import { translateAtom } from '../../store/translate';
+import { translateAtom } from '../../storage/translate';
 import { changeRoute } from '../history-catcher';
 import s from './not-found.module.scss';
 
