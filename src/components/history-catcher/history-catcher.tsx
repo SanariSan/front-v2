@@ -1,5 +1,5 @@
 import type { History } from 'history';
-import { FC } from 'react';
+import type { FC } from 'react';
 import type { RouteComponentProps } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
@@ -13,25 +13,22 @@ import { withRouter } from 'react-router-dom';
  * https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4
  */
 
-let globalHistory: History;
+let globalHistory: History | undefined;
 
-const GlobalHistoryCatcher: FC<RouteComponentProps> = ({
-  history,
-  location,
-  match,
-  staticContext,
-}) => {
+const GlobalHistoryCatcher: FC<RouteComponentProps> = ({ history }) => {
   globalHistory = history;
 
   // show current history state
   // return <>{JSON.stringify(globalHistory.location)}</>;
+
+  // eslint-disable-next-line unicorn/no-null
   return null;
 };
 
 const GlobalHistoryCatcherComponent = withRouter(GlobalHistoryCatcher);
 
 function changeRoute(route: string) {
-  if (!globalHistory) {
+  if (globalHistory === undefined) {
     throw new Error(
       'No history Object. You probably forgot to mount GlobalHistoryCatcherComponent.',
     );

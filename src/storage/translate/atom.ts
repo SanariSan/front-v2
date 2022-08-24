@@ -1,6 +1,12 @@
 import { Atom } from '@dbeining/react-atom';
 import { getLSValue } from '../../helpers/browser';
 
-export const initialState: boolean = getLSValue('translate') || false;
+export const INITIAL_STATE: boolean = (() => {
+  const lsValue = getLSValue('translate');
+  if (typeof lsValue !== 'boolean') {
+    throw new TypeError(`Invalid local storage value (translate): ${String(lsValue)}`);
+  }
 
-export const translateAtom = Atom.of(initialState);
+  return lsValue;
+})();
+export const TranslateAtom = Atom.of(INITIAL_STATE);

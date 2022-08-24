@@ -1,8 +1,3 @@
-type ILocalStorageKey =
-  | 'accessToken'
-  | 'refreshToken'
-  | 'profileInfo'
-  | 'storageInfo'
-  | 'translate';
+type TLocalStorageKey = 'accessToken' | 'refreshToken' | 'storageInfo' | 'translate';
 
-export type { ILocalStorageKey };
+export type { TLocalStorageKey };

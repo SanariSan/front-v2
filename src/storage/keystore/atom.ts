@@ -1,9 +1,24 @@
 import { Atom } from '@dbeining/react-atom';
 import { getLSValue } from '../../helpers/browser';
+import type { TKeystore } from './keystore.type';
 
-export const initialState: { accessToken?: string; refreshToken?: string } = {
-  accessToken: getLSValue('accessToken'),
-  refreshToken: getLSValue('refreshToken'),
-};
+export const INITIAL_STATE: TKeystore = (() => {
+  const lsValueAccessToken = getLSValue('accessToken');
+  const lsValueRefreshToken = getLSValue('refreshToken');
 
-export const keystoreAtom = Atom.of(initialState);
+  if (typeof lsValueAccessToken !== 'string' && typeof lsValueAccessToken !== 'undefined') {
+    throw new TypeError(`Invalid local storage value (accessToken): ${String(lsValueAccessToken)}`);
+  }
+  if (typeof lsValueRefreshToken !== 'string' && typeof lsValueRefreshToken !== 'undefined') {
+    throw new TypeError(
+      `Invalid local storage value (refreshToken): ${String(lsValueRefreshToken)}`,
+    );
+  }
+
+  return {
+    accessToken: lsValueAccessToken,
+    refreshToken: lsValueRefreshToken,
+  };
+})();
+
+export const KeystoreAtom = Atom.of(INITIAL_STATE);

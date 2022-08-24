@@ -1,6 +1,6 @@
-import { swap } from '@libre/atom';
-import { forcedRerenderAtom } from './atom';
+import { swap } from '@dbeining/react-atom';
+import { ForcedRerenderAtom } from './atom';
 
 export const forceRerender = () => {
-  swap(forcedRerenderAtom, (state) => !state);
+  swap(ForcedRerenderAtom, (state) => !state);
 };
