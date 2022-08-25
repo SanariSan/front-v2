@@ -170,6 +170,7 @@ sketch
 ./logs/**/*
 *.md
 *.ignore*
+ignore/**/*
 dist*
 *.http
 *.env*

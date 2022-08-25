@@ -1,7 +1,7 @@
 type TRequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 interface IRequestOptions {
-  url: RequestInfo | URL;
+  url: RequestInfo | string;
   method?: TRequestMethod;
   headers?: HeadersInit;
   body?: BodyInit | null | undefined;

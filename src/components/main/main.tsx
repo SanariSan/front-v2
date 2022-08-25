@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 import { changeRoute } from '../history-catcher';
 import s from './main.module.scss';
 
-const MainComponent: React.FC<any> = ({ data }) => (
+const MainComponent: React.FC = () => (
   <div>
     <Button
       color="violet"
@@ -15,7 +15,6 @@ const MainComponent: React.FC<any> = ({ data }) => (
     >
       To profile
     </Button>
-    {JSON.stringify(data)}
   </div>
 );
 

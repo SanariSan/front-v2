@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 import { changeRoute } from '../history-catcher';
 import s from './profile.module.scss';
 
-const ProfileComponent: React.FC = () => (
+const ProfileComponent: React.FC<any> = ({ data }) => (
   <div>
     <Button
       color="violet"
@@ -25,6 +25,8 @@ const ProfileComponent: React.FC = () => (
     >
       To info
     </Button>
+    <br />
+    <textarea value={JSON.stringify(data, undefined, 2)} />
   </div>
 );
 

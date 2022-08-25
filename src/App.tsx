@@ -8,9 +8,15 @@ import { ProfileContainer } from './containers/profile';
 const App: React.FC = () => (
   <div className={s.App}>
     <Switch>
-      <Route exact path="/" component={MainContainer} />
-      <Route path="/profile" component={ProfileContainer} />
-      <Route path="/" component={NotFound} />
+      <Route exact path="/">
+        <MainContainer />
+      </Route>
+      <Route path="/profile">
+        <ProfileContainer />
+      </Route>
+      <Route path="/">
+        <NotFound />
+      </Route>
     </Switch>
   </div>
 );

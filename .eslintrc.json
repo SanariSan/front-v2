@@ -2,6 +2,7 @@
   // could explicitly define parser here, but leaving default eslint parser (*)
   // then override it with needed in "overrides" section
   // "parser": "@typescript-eslint/parser",
+
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
@@ -9,8 +10,8 @@
   "env": {
     "node": true,
     "es2020": true,
-    "browser": true
-    // "jest": true
+    "browser": true,
+    "jest": true
   },
   "settings": {
     // plugin import, resolving process https://github.com/import-js/eslint-plugin-import#resolvers
@@ -69,6 +70,9 @@
     // rules:unicorn
 
     // + plugin:unicorn/recommended
+
+    // Disabled for react-app-env.d.ts file
+    "unicorn/no-empty-file": "off",
 
     // Airbnb prefers functional iteration over arrays, with forEach https://github.com/sindresorhus/eslint-plugin-unicorn/blob/v38.0.0/docs/rules/no-array-for-each.md | https://github.com/airbnb/javascript#iterators--nope
     "unicorn/no-array-for-each": "off",
@@ -577,8 +581,8 @@
       "env": {
         "node": true,
         "es2020": true,
-        "browser": true
-        // "jest": true
+        "browser": true,
+        "jest": true
       },
       "settings": {
         // plugin import, resolving process https://github.com/import-js/eslint-plugin-import#resolvers
@@ -590,6 +594,7 @@
           }
         }
       },
+
       "rules": {
         // These 2 rules extend the base eslint/default-param-last rule. It adds support for optional parameters. https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/default-param-last.md
         "default-param-last": "off",
