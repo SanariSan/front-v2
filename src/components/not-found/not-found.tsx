@@ -2,12 +2,12 @@ import { useAtom } from '@dbeining/react-atom';
 import React from 'react';
 import { Button, Image } from 'semantic-ui-react';
 import img from '../../img/404.png';
-import { translateAtom } from '../../storage/translate';
+import { TranslateAtom } from '../../storage/translate';
 import { changeRoute } from '../history-catcher';
 import s from './not-found.module.scss';
 
 const NotFound: React.FC = () => {
-  const isTranslated = useAtom(translateAtom);
+  const isTranslated = useAtom(TranslateAtom);
 
   return (
     <div className={s.wrapGlobal}>

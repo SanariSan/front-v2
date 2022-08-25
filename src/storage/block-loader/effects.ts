@@ -1,6 +1,6 @@
-import { swap } from '@libre/atom';
-import { blockLoaderAtom } from './atom';
+import { swap } from '@dbeining/react-atom';
+import { BlockLoaderAtom } from './atom';
 
-export const toggleBlockLoader = (val) => {
-  swap(blockLoaderAtom, (state) => val);
+export const toggleBlockLoader = (val: boolean) => {
+  swap(BlockLoaderAtom, () => val);
 };

@@ -1,8 +1,8 @@
-import { deref, swap } from '@libre/atom';
-import { translateAtom } from './atom';
+import { deref, swap } from '@dbeining/react-atom';
+import { TranslateAtom } from './atom';
 import { setLSValue } from '../../helpers/browser';
 
 export const toggleTranslate = () => {
-  swap(translateAtom, (state) => !state);
-  setLSValue('translate', deref(translateAtom));
+  swap(TranslateAtom, (state) => !state);
+  setLSValue('translate', deref(TranslateAtom));
 };

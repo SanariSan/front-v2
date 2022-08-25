@@ -8,7 +8,6 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "rootDir": "src",
-    // "outDir": "dist", overwritten anyways
     "declaration": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -19,5 +18,5 @@
     "isolatedModules": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "ignore/**/*", "src/**/*.ignore.ts"]
+  "exclude": ["node_modules", "ignore/**/*", "ignore/src/**/*", "src/**/*.ignore.ts"]
 }
