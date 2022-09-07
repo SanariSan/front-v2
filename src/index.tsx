@@ -1,9 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserHistory } from 'history';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Route, Router, Switch } from 'react-router-dom';
-import 'semantic-ui-css/semantic.min.css';
 import { App } from './app';
 import { GlobalHistoryCatcherComponent } from './components/history-catcher';
 import './index.scss';

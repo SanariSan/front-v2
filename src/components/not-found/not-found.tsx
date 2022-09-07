@@ -1,28 +1,29 @@
 import { useAtom } from '@dbeining/react-atom';
-import React from 'react';
-import { Button, Image } from 'semantic-ui-react';
+import type { FC } from 'react';
+import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
 import img from '../../img/404.png';
 import { TranslateAtom } from '../../storage/translate';
 import { changeRoute } from '../history-catcher';
 import s from './not-found.module.scss';
 
-const NotFound: React.FC = () => {
+const NotFound: FC = () => {
   const isTranslated = useAtom(TranslateAtom);
 
   return (
-    <div className={s.wrapGlobal}>
-      <div className={s.top}>
-        <Image src={img} size={'big'} />
-      </div>
-      <div className={s.bot}>
+    <Row className={s.wrapGlobal}>
+      <Row className={s.top}>
+        <Image src={img} />
+      </Row>
+      <Row className={s.bot}>
         <h1 className={s.h1Styled}>
           {isTranslated
             ? 'Не найдено, а еще, может быть, у вас нет доступа!'
             : 'Not Found or No Rights to access'}
         </h1>
         <Button
-          color="violet"
-          inverted
+          variant="success"
           className={s.btn}
           onClick={() => {
             changeRoute('/');
@@ -30,8 +31,8 @@ const NotFound: React.FC = () => {
         >
           {isTranslated ? 'Вернуться на главную' : 'Back to main'}
         </Button>
-      </div>
-    </div>
+      </Row>
+    </Row>
   );
 };
 
