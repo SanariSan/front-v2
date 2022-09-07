@@ -1,5 +1,5 @@
 import { Atom } from '@dbeining/react-atom';
-import { getLSValue } from '../../helpers/browser';
+import { getLSValue } from '../../../helpers/browser';
 import type { TKeystore } from './keystore.type';
 
 export const INITIAL_STATE: TKeystore = (() => {

@@ -1,5 +1,5 @@
 import { swap } from '@dbeining/react-atom';
-import { setLSValue } from '../../helpers/browser';
+import { setLSValue } from '../../../helpers/browser';
 import { KeystoreAtom } from './atom';
 import type { TKeystore } from './keystore.type';
 

@@ -12,7 +12,7 @@ const ProfileComponent: FC<TObjectUnknown> = ({ data }) => (
     <Row>
       <Col>
         <Button
-          variant="outline-dark"
+          variant="dark"
           className={s.btn}
           onClick={() => {
             changeRoute('/');

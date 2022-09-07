@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import img from '../../img/404.png';
-import { TranslateAtom } from '../../storage/translate';
+import { TranslateAtom } from '../../store/react-atom/translate';
 import { changeRoute } from '../history-catcher';
 import s from './not-found.module.scss';
 

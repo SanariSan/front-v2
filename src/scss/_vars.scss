@@ -75,7 +75,6 @@ $grid-breakpoints: (
 // 95% from breakpoints values
 $reduce-multiplier: 0.95;
 $container-max-widths: (
-  xs: $screen-sm-min * $reduce-multiplier,
   sm: $screen-sm-min * $reduce-multiplier,
   md: $screen-md-min * $reduce-multiplier,
   lg: $screen-lg-min * $reduce-multiplier,

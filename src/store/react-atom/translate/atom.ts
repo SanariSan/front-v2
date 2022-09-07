@@ -1,5 +1,5 @@
 import { Atom } from '@dbeining/react-atom';
-import { getLSValue } from '../../helpers/browser';
+import { getLSValue } from '../../../helpers/browser';
 
 export const INITIAL_STATE: boolean = (() => {
   const lsValue = getLSValue('translate');
