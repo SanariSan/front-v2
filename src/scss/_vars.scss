@@ -45,10 +45,10 @@ $text-night-inactive-color: darken($text-night-color, 25%);
 $text-night-inactive-alt-color: lighten($text-night-alt-color, 25%);
 
 // vars for custom media query MIXINS
-// value and higher
 
+// value and higher
 // Small tablets and large smartphones (landscape view)
-$screen-xs-min: 384px;
+$screen-xs-min: 0px;
 // Small tablets (portrait view)
 $screen-sm-min: 576px;
 // Tablets and small desktops
@@ -57,23 +57,29 @@ $screen-md-min: 768px;
 $screen-lg-min: 1092px;
 // Big screens
 $screen-xl-min: 1400px;
+// Very big screens (~2k resolution)
+$screen-xxl-min: 1800px;
 
 // Customization Bootstrap grid vars from "app/libs/bootstrap/scss/_variables.scss"
+$grid-gutter-width: 1.5rem;
+$grid-columns: 12;
 // value and higher
-$grid-gutter-width: 20px;
-$grid-columns: 16 !default;
 $grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 1092px,
-  xl: 1400px,
-) !default;
+  xs: $screen-xs-min,
+  sm: $screen-sm-min,
+  md: $screen-md-min,
+  lg: $screen-lg-min,
+  xl: $screen-xl-min,
+  xxl: $screen-xxl-min,
+);
+// 95% from breakpoints values
+$reduce-multiplier: 0.95;
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 1060px,
-  xl: 1340px,
-) !default;
+  sm: $screen-sm-min * $reduce-multiplier,
+  md: $screen-md-min * $reduce-multiplier,
+  lg: $screen-lg-min * $reduce-multiplier,
+  xl: $screen-xl-min * $reduce-multiplier,
+  xxl: $screen-xxl-min * $reduce-multiplier,
+);
 
 $gutter: $grid-gutter-width;

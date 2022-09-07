@@ -1,8 +1,7 @@
 import { Atom } from '@dbeining/react-atom';
-import { getLSValue } from '../../helpers/browser';
+import { getLSValue } from '../../../helpers/browser';
 import type { TKeystore } from './keystore.type';
 
-// TODO: redo this when actually using, looks bad
 export const INITIAL_STATE: TKeystore = (() => {
   const lsValueAccessToken = getLSValue('accessToken');
   const lsValueRefreshToken = getLSValue('refreshToken');

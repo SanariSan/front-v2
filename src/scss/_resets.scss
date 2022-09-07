@@ -12,9 +12,17 @@ html {
 body {
   text-size-adjust: 100%;
   position: relative;
+}
 
+// wh for top lvl elements, if any problems consider vh/vw
+html,
+body {
+  height: 100%;
   width: 100%;
-  min-height: 100vh;
+}
+
+a {
+  cursor: pointer;
 }
 
 /* Box sizing normalization */

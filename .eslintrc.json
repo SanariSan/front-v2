@@ -60,7 +60,9 @@
     // another set of useful rules
     "plugin:unicorn/recommended",
     // disabling all the rules that might conflict with prettier https://github.com/prettier/eslint-config-prettier#installation
-    "prettier"
+    "prettier",
+    // enforce custom react hooks rules https://reactjs.org/docs/hooks-rules.html
+    "plugin:react-hooks/recommended"
   ],
 
   // rules - place for overridng/setting rules from plugin/config
@@ -201,6 +203,11 @@
 
     // Forbid default exports https://basarat.gitbooks.io/typescript/docs/tips/defaultIsBad.html | https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-default-export.md
     "import/no-default-export": ["error"],
+
+    // ==========================================
+    // rules:react-hooks
+
+    // + plugin:react-hooks/recommended
 
     // ==========================================
     // rules:promise

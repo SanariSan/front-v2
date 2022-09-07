@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ProfileComponent } from '../../components/profile';
+import type { TObjectString } from '../../general.type';
 import { request } from '../../services';
 import { InfoContainer } from '../info';
 
 const ProfileContainer: React.FC = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState<TObjectString>();
 
   useEffect(() => {
     void (async () => {
