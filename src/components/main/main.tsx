@@ -4,7 +4,6 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useScreenDetails } from '../../hooks/screen';
-import { testReduxClassic } from '../../store/redux-classic';
 import { changeRoute } from '../history-catcher';
 import s from './main.module.scss';
 
@@ -19,28 +18,23 @@ const MainComponent: FC = () => {
     <Container>
       <Row xs={2}>
         <Col xs={10}>
-          <h2>Test redux classic</h2>
-          <pre className={s.test}>{`${w} x ${h}`}</pre>
+          <p>Sections</p>
+          <pre className={s.test}>Current page size - {`${w} x ${h}`}</pre>
         </Col>
         <Col xs={2}>
           <Button
             className={s.btn}
+            size="sm"
             variant="success"
             onClick={() => {
-              testReduxClassic();
+              changeRoute('/redux-classic');
             }}
           >
-            Run
+            To redux-classic
           </Button>
-        </Col>
-      </Row>
-      <Row xs={2}>
-        <Col xs={10}>
-          <h2>h2 col 1</h2>
-        </Col>
-        <Col xs={2}>
           <Button
             className={s.btn}
+            size="sm"
             variant="success"
             onClick={() => {
               changeRoute('/profile');
