@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from 'redux';
+import { sleep } from '../../helpers/util';
 
 type TStateTodos = string[] | undefined;
 type TActionTodos = { type: 'push' | 'pull' | ''; payload?: string };
@@ -25,24 +26,25 @@ const notes = (
   switch (type) {
     case 'add':
       return { ...state, [title]: text };
-    case 'remove': {
+    case 'remove':
       return Object.fromEntries(Object.entries(state).filter(([key]) => key !== title));
-    }
     default:
       return state;
   }
 };
 
 const reducerUnion = combineReducers({ todos, notes });
+const StoreClassic = createStore(reducerUnion);
 
-const testReduxClassic = () => {
-  const store = createStore(reducerUnion);
+const testReduxClassic = async () => {
   console.group('Initial state');
-  console.log(store.getState());
+  console.log(StoreClassic.getState());
   console.groupEnd();
 
-  store.dispatch({ type: 'push', payload: '1' });
-  store.dispatch({
+  await sleep(1000);
+
+  StoreClassic.dispatch({ type: 'push', payload: '1' });
+  StoreClassic.dispatch({
     type: 'add',
     payload: {
       title: 'title1',
@@ -51,11 +53,13 @@ const testReduxClassic = () => {
   });
 
   console.group('Dispatched "add" actions');
-  console.log(store.getState());
+  console.log(StoreClassic.getState());
   console.groupEnd();
 
-  store.dispatch({ type: 'pull' });
-  store.dispatch({
+  await sleep(1000);
+
+  StoreClassic.dispatch({ type: 'pull' });
+  StoreClassic.dispatch({
     type: 'remove',
     payload: {
       title: 'title1',
@@ -63,8 +67,8 @@ const testReduxClassic = () => {
   });
 
   console.group('Dispatched "remove" actions');
-  console.log(store.getState());
+  console.log(StoreClassic.getState());
   console.groupEnd();
 };
 
-export { testReduxClassic };
+export { StoreClassic, testReduxClassic };
