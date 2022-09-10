@@ -1,4 +1,4 @@
-import React from 'react';
+import type { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import s from './app.module.scss';
 import { NotFound } from './components/not-found';
@@ -6,7 +6,7 @@ import { MainContainer } from './containers/main';
 import { ProfileContainer } from './containers/profile';
 import { ReduxClassicContainer } from './containers/redux-classic';
 
-const App: React.FC = () => (
+const App: FC = () => (
   <>
     <Switch>
       <Route exact path="/">

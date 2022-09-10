@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { ETIME } from '../general.const';
+import { sleep } from '../helpers/util';
 import { DEFAULT_FETCH_HEADERS, DEFAULT_FETCH_OPTIONS } from './services.const';
 import type { IRequestOptions } from './services.type';
 
@@ -9,14 +9,13 @@ async function request({
   headers,
   body,
   fetchOtions,
-  timeoutSec = 30,
+  timeoutMS = 10_000,
+  attemptDelayMS = 500,
+  attemptDelayGrowthMS = 500,
   maxAttempts = 1,
+  abortController: externalAbortController = new AbortController(),
 }: IRequestOptions) {
-  let attemptsDone = 0;
-  let isError = false;
-  let response: Response | undefined;
-
-  const requestInternal = (controller: AbortController) =>
+  const requestInternal = (localAbortController: AbortController) =>
     fetch(url, {
       ...DEFAULT_FETCH_OPTIONS,
       ...fetchOtions,
@@ -24,37 +23,64 @@ async function request({
         ...DEFAULT_FETCH_HEADERS,
         ...headers,
       },
-      signal: controller.signal,
+      signal: localAbortController.signal,
       method,
       body,
-    }).catch((error) => {
-      // TODO: temp log format, change
-      console.log('___Request error___');
-      console.log(error);
-      console.dir(error);
     });
 
-  do {
-    const controller = new AbortController();
-    const timeoutId: NodeJS.Timeout = setTimeout(() => {
-      controller.abort();
-    }, timeoutSec * ETIME.SEC);
-    isError = false;
-    attemptsDone += 1;
+  // if externally signalled - stop ongoing request through local abort controller
+  const externalAbortControllerCbWrapper = (localAbortController: AbortController) => () => {
+    localAbortController.abort();
+  };
 
-    response = (await requestInternal(controller)) as Response | undefined;
-    clearTimeout(timeoutId);
+  const setupExternalAbortControllerSignalListener = (externalAbortControllerCb: () => void) => {
+    externalAbortController.signal.addEventListener('abort', externalAbortControllerCb);
 
-    if (response === undefined) {
-      isError = true;
-    } else {
-      console.dir({ url: response.url, status: response.status, headers: response.headers });
+    // if abort happened while was not listening - dispatch missed event
+    if (externalAbortController.signal.aborted) {
+      externalAbortController.signal.dispatchEvent(new Event('abort'));
     }
-  } while (isError && attemptsDone < maxAttempts);
+  };
 
-  if (isError || !response) throw new Error('No successful response');
+  const cleanupExternalAbortControllerSignalListener = (externalAbortControllerCb: () => void) => {
+    externalAbortController.signal.removeEventListener('abort', externalAbortControllerCb);
+  };
 
-  return response;
+  let errorReturn: Error | undefined;
+  let currentAttempt = 0;
+  while (currentAttempt < maxAttempts) {
+    const localAbortController = new AbortController();
+    const externalAbortControllerCb = externalAbortControllerCbWrapper(localAbortController);
+    setupExternalAbortControllerSignalListener(externalAbortControllerCb);
+
+    const timeoutId: NodeJS.Timeout = setTimeout(() => {
+      localAbortController.abort();
+    }, timeoutMS);
+
+    // eslint-disable-next-line @typescript-eslint/no-loop-func
+    const response = (await requestInternal(localAbortController).catch((error: Error) => {
+      errorReturn = error;
+    })) as Response | undefined;
+
+    clearTimeout(timeoutId);
+    cleanupExternalAbortControllerSignalListener(externalAbortControllerCb);
+
+    if (response !== undefined) {
+      console.dir({ url: response.url, status: response.status, headers: response.headers });
+      return response;
+    }
+
+    // check if external signal was called at this point to not sleep when just need to exit
+    if (externalAbortController.signal.aborted) {
+      throw new Error('Request externally aborted');
+    }
+
+    await sleep(attemptDelayMS + currentAttempt * attemptDelayGrowthMS);
+
+    currentAttempt += 1;
+  }
+
+  throw errorReturn as Error;
 }
 
 export { request };

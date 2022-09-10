@@ -3,14 +3,27 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import type { TObjectUnknown } from '../../general.type';
+import type { TObjectString } from '../../general.type';
 import { changeRoute } from '../history-catcher';
 import s from './profile.module.scss';
 
-const ProfileComponent: FC<TObjectUnknown> = ({ data }) => (
-  <Container>
-    <Row>
+type TProfileProps = {
+  data: TObjectString;
+  forceRerender: () => void;
+};
+const ProfileComponent: FC<TProfileProps> = ({ data, forceRerender }) => (
+  <Container className="h-75">
+    <Row className="h-100">
       <Col>
+        <Button
+          variant="dark"
+          className={s.btn}
+          onClick={() => {
+            forceRerender();
+          }}
+        >
+          Rerender
+        </Button>
         <Button
           variant="dark"
           className={s.btn}
@@ -33,7 +46,7 @@ const ProfileComponent: FC<TObjectUnknown> = ({ data }) => (
         </Button>
       </Col>
       <Col>
-        <textarea value={JSON.stringify(data, undefined, 2)} />
+        <textarea readOnly style={{ height: '90%' }} value={JSON.stringify(data, undefined, 2)} />
       </Col>
     </Row>
   </Container>
