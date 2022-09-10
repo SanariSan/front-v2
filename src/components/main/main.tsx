@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import { useScreenDetails } from '../../hooks/screen';
+import { useScreenDetails } from '../../hooks/use-screen-details';
 import { changeRoute } from '../history-catcher';
 import s from './main.module.scss';
 

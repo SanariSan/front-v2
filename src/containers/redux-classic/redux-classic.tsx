@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import type { FormControlProps } from 'react-bootstrap';
 import { ReduxClassicComponent } from '../../components/redux-classic';
 import { StoreClassic } from '../../store/redux-classic';
@@ -17,15 +17,22 @@ const ReduxClassicContainer: React.FC = () => {
     };
   }, []);
 
-  const updateInput = (event: React.FormEvent<FormControlProps>) => {
+  // const updateInput = (event: React.FormEvent<FormControlProps> or React.BaseSyntheticEvent and cast value) => {
+  const updateInput = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setInput(event.currentTarget.value);
-  };
+  }, []);
+
+  // const dispatch = useCallback(StoreClassic.dispatch, []);
+  const dispatch = useCallback(
+    (action: Parameters<typeof StoreClassic.dispatch>[0]) => StoreClassic.dispatch(action),
+    [],
+  );
 
   return (
     <ReduxClassicComponent
       store={store}
-      dispatch={StoreClassic.dispatch}
+      dispatch={dispatch}
       input={input}
       updateInput={updateInput}
     />

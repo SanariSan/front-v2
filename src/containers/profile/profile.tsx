@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ProfileComponent } from '../../components/profile';
 import type { TObjectString } from '../../general.type';
@@ -6,21 +6,37 @@ import { request } from '../../services';
 import { InfoContainer } from '../info';
 
 const ProfileContainer: React.FC = () => {
-  const [data, setData] = useState<TObjectString>();
+  const [data, setData] = useState<TObjectString>({});
+  const [track, rerender] = useState<number>(0);
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     void (async () => {
-      const r = await request({ url: 'http://httpbin.org/json' });
-      const j = await r.json();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const r = await request({ url: 'http://httpbin.org/json', abortController }).catch(
+        (error) => {
+          console.log(`Req error in component _ ${String(error)}`);
+        },
+      );
+
+      if (!r) return;
+      const j = (await r.json()) as TObjectString;
       setData(j);
     })();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [track]);
+
+  const forceRerender = useCallback(() => {
+    rerender((s) => s + 1);
   }, []);
 
   return (
     <Switch>
       <Route exact path="/profile">
-        <ProfileComponent data={data} />
+        <ProfileComponent data={data} forceRerender={forceRerender} />
       </Route>
       <Route path="/profile/info">
         <InfoContainer />

@@ -6,8 +6,11 @@ interface IRequestOptions {
   headers?: HeadersInit;
   body?: BodyInit | null | undefined;
   fetchOtions?: RequestInit & { method: TRequestMethod };
-  timeoutSec?: number;
+  timeoutMS?: number;
+  attemptDelayMS?: number;
+  attemptDelayGrowthMS?: number;
   maxAttempts?: number;
+  abortController?: AbortController;
 }
 
 export type { TRequestMethod, IRequestOptions };
