@@ -11,6 +11,7 @@ interface IRequestOptions {
   attemptDelayGrowthMS?: number;
   maxAttempts?: number;
   abortController?: AbortController;
+  abortSignal?: AbortSignal;
 }
 
 export type { TRequestMethod, IRequestOptions };
