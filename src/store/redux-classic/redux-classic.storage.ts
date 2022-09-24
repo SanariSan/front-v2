@@ -1,5 +1,4 @@
-import { createStore, combineReducers } from 'redux';
-import { sleep } from '../../helpers/util';
+import { combineReducers, createStore } from 'redux';
 
 type TStateTodos = string[] | undefined;
 type TActionTodos = { type: 'push' | 'pull' | ''; payload?: string };
@@ -36,39 +35,4 @@ const notes = (
 const reducerUnion = combineReducers({ todos, notes });
 const StoreClassic = createStore(reducerUnion);
 
-const testReduxClassic = async () => {
-  console.group('Initial state');
-  console.log(StoreClassic.getState());
-  console.groupEnd();
-
-  await sleep(1000);
-
-  StoreClassic.dispatch({ type: 'push', payload: '1' });
-  StoreClassic.dispatch({
-    type: 'add',
-    payload: {
-      title: 'title1',
-      text: 'text1',
-    },
-  });
-
-  console.group('Dispatched "add" actions');
-  console.log(StoreClassic.getState());
-  console.groupEnd();
-
-  await sleep(1000);
-
-  StoreClassic.dispatch({ type: 'pull' });
-  StoreClassic.dispatch({
-    type: 'remove',
-    payload: {
-      title: 'title1',
-    },
-  });
-
-  console.group('Dispatched "remove" actions');
-  console.log(StoreClassic.getState());
-  console.groupEnd();
-};
-
-export { StoreClassic, testReduxClassic };
+export { StoreClassic };

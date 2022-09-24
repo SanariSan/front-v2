@@ -37,6 +37,16 @@ const MainComponent: FC = () => {
             size="sm"
             variant="success"
             onClick={() => {
+              changeRoute('/redux-toolkit');
+            }}
+          >
+            To redux-toolkit
+          </Button>
+          <Button
+            className={s.btn}
+            size="sm"
+            variant="success"
+            onClick={() => {
               changeRoute('/profile');
             }}
           >

@@ -9,6 +9,7 @@ async function request({
   headers,
   body,
   fetchOtions,
+  abortSignal,
   timeoutMS = 10_000,
   attemptDelayMS = 500,
   attemptDelayGrowthMS = 500,
@@ -36,14 +37,22 @@ async function request({
   const setupExternalAbortControllerSignalListener = (externalAbortControllerCb: () => void) => {
     externalAbortController.signal.addEventListener('abort', externalAbortControllerCb);
 
+    if (abortSignal) {
+      abortSignal.addEventListener('abort', externalAbortControllerCb);
+    }
+
     // if abort happened while was not listening - dispatch missed event
-    if (externalAbortController.signal.aborted) {
+    if (externalAbortController.signal.aborted || (abortSignal && abortSignal.aborted)) {
       externalAbortController.signal.dispatchEvent(new Event('abort'));
     }
   };
 
   const cleanupExternalAbortControllerSignalListener = (externalAbortControllerCb: () => void) => {
     externalAbortController.signal.removeEventListener('abort', externalAbortControllerCb);
+
+    if (abortSignal) {
+      abortSignal.removeEventListener('abort', externalAbortControllerCb);
+    }
   };
 
   let errorReturn: Error | undefined;
@@ -71,7 +80,7 @@ async function request({
     }
 
     // check if external signal was called at this point to not sleep when just need to exit
-    if (externalAbortController.signal.aborted) {
+    if (externalAbortController.signal.aborted || (abortSignal && abortSignal.aborted)) {
       throw new Error('Request externally aborted');
     }
 
