@@ -1,7 +1,7 @@
 {
   "name": "front",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./logic/index.js",
   "author": "SanariSan <SanariSan@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
