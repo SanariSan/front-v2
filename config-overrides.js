@@ -13,7 +13,7 @@ module.exports = {
      */
 
     // console.dir(config, { depth: 5 });
-    config.entry = config.entry.replace(new RegExp('index.tsx$'), 'logic\\index.tsx');
+    config.entry = config.entry.replace(new RegExp('index.ts$'), 'logic\\index.tsx');
     console.log('entry point changed:', config.entry);
 
     config.resolve.fallback = {
