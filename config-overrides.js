@@ -1,21 +1,27 @@
 const webpack = require('webpack');
 
-console.log('@ using react-rewired @');
+console.log(`
+@@@@@@@@@@@@@@@@@@@@@@@
+@ using react-rewired @
+@@@@@@@@@@@@@@@@@@@@@@@
+`);
 
-// cra v5 issue https://github.com/facebook/create-react-app/issues/11756
 module.exports = {
   webpack: function (config, env) {
     /**
+     * HOW TO CHANGE ENTRY POINT
+     *
      * when ejecting do this instead (?)
-     * In config/paths.js change appIndexJs from resolveModule(resolveApp, 'src/index') to resolveModule(resolveApp, 'src/logic/index').
+     * In config/paths.js change appIndexJs from resolveModule(resolveApp, 'src/index') to resolveModule(resolveApp, 'src/nested/index').
      * In package.json change scripts:
      * "start": "node scripts/start.js", "build": "node scripts/build.js", "test": "node scripts/test.js"
      */
+    // config.entry = config.entry.replace(new RegExp('index.ts$'), 'nested\\index.tsx');
+    // console.log('entry point changed:', config.entry);
 
     // console.dir(config, { depth: 5 });
-    config.entry = config.entry.replace(new RegExp('index.ts$'), 'logic\\index.tsx');
-    console.log('entry point changed:', config.entry);
 
+    // cra v5 issue https://github.com/facebook/create-react-app/issues/11756
     config.resolve.fallback = {
       url: require.resolve('url'),
       assert: require.resolve('assert'),
